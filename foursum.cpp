@@ -20,8 +20,10 @@ vector <vector<int>>threesum(vector<int>& nums, int target)
 			if (nums[i] + nums[left] + nums[right] == target)
 			{
 				ret.push_back(vector<int>{nums[i], nums[left], nums[right]});
-				if (left < right && nums[left] == nums[left++]) left++;
-				if (left < right && nums[right] == nums[right--]) right--;
+				while (left < right && nums[left] == nums[left+1]) left++;
+				while (left < right && nums[right] == nums[right-1]) right--;
+				left++;
+				right--;
 			}
 			else if(nums[i] + nums[left] + nums[right] < target)
 			{
@@ -53,8 +55,10 @@ vector<vector<int>>foursum(vector<int>& nums, int target)
 				if (nums[i] + nums[j] + nums[left] + nums[right] == target)
 				{
 					ret.push_back(vector<int>{ nums[i] ,nums[j],nums[left],nums[right] });
-					if (left < right && nums[left] == nums[left + 1]) left++;
-					if (left < right && nums[right] == nums[right--]) right--;
+					while (left < right && nums[left] == nums[left + 1]) left++;
+					while (left < right && nums[right] == nums[right-1]) right--;
+					left++;
+					right--;
 				}
 				else if (nums[i] + nums[j] + nums[left] + nums[right] < target)
 				{
@@ -90,9 +94,10 @@ void test_threesum()
 void test_foursum()
 {
 	cout << "四数相加等于0" << endl;
-	int a[6] = { 1,0,-1,0,-2,2 };
-	vector<int> nums(a, a + 6);
-	int target = 0;
+	int a[18] = { 4, -9, -2, -2, -7, 9, 9, 5, 10, -10, 4, 5, 2, -4, -2, 4, -9, 5 };
+
+	vector<int> nums(a, a + 18);
+	int target = -13;
 	vector<vector<int>>ret = foursum(nums, target);
 	for (int i = 0; i < ret.size(); i++)
 	{
